@@ -18,15 +18,15 @@ O modelo deverá obedecer às seguintes restrições:
   * derivado;
   * multi-valor;
   * e composto;
-- 6 relacionamentos binários no mínimo por forma a que pelo menos um dos relacionamentos exemplifique:
- - cardinalidade 1:N ou N:1;
- - cardinalidade M:N;
- - cardinalidade 1:1;
- - participação parcial por uma entidade;
- - participação total por uma entidade;
- - a existência de um ou mais atributos para o relacionamento;
-- Opcionalmente, o modelo ER poderá também fazer uso de entidades-tipo fracas, e alguns relacionamentos binários poderão ser recursivos.
-- Não deverá fazer uso de relacionamentos ternários.
+* 6 relacionamentos binários no mínimo por forma a que pelo menos um dos relacionamentos exemplifique:
+  * cardinalidade 1:N ou N:1;
+  * cardinalidade M:N;
+  *cardinalidade 1:1;
+  * participação parcial por uma entidade;
+  * participação total por uma entidade;
+  * a existência de um ou mais atributos para o relacionamento;
+* Opcionalmente, o modelo ER poderá também fazer uso de entidades-tipo fracas, e alguns relacionamentos binários poderão ser recursivos.
+* Não deverá fazer uso de relacionamentos ternários.
 
 ## Modelo Relacional/ base de dados SQL
 
