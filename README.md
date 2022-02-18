@@ -14,17 +14,17 @@ O objetivo deste trabalho seria criar uma BD para um universo à nossa escolha, 
 O modelo deverá obedecer às seguintes restrições:
 
 - 4 entidades-tipo no mínimo, e de tal forma que haja pelo menos uma entidade-tipo que exemplifique cada um dos seguintes tipos de atributos (além de atributos-chave):
-        1. opcional;
-        2. derivado;
-        3. multi-valor;
-        4. e composto;
+        - opcional;
+        - derivado;
+        - multi-valor;
+        - e composto;
 - 6 relacionamentos binários no mínimo por forma a que pelo menos um dos relacionamentos exemplifique:
-        1. cardinalidade 1:N ou N:1;
-        2. cardinalidade M:N;
-        3. cardinalidade 1:1;
-        4. participação parcial por uma entidade;
-        5. participação total por uma entidade;
-        6. a existência de um ou mais atributos para o relacionamento;
+        - cardinalidade 1:N ou N:1;
+        - cardinalidade M:N;
+        - cardinalidade 1:1;
+        - participação parcial por uma entidade;
+        - participação total por uma entidade;
+        - a existência de um ou mais atributos para o relacionamento;
 - Opcionalmente, o modelo ER poderá também fazer uso de entidades-tipo fracas, e alguns relacionamentos binários poderão ser recursivos.
 - Não deverá fazer uso de relacionamentos ternários.
 
