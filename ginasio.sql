@@ -1,0 +1,221 @@
+/*BD PARA TRABALHO -> GYM*/
+
+DROP DATABASE IF EXISTS ginasio;
+CREATE DATABASE ginasio;
+
+USE ginasio;
+
+/*-- TABLE WORKOUT_PLAN*/
+
+CREATE TABLE
+PLANO_TREINO
+(
+	PlanoID				INT PRIMARY KEY AUTO_INCREMENT,
+	Intensidade			VARCHAR(32) NOT NULL
+);
+
+INSERT INTO PLANO_TREINO(Intensidade)
+VALUES
+('Iniciante'),
+('Avançado'),
+('Médio'),
+('Avançado'),
+('Iniciante'),
+('Médio');
+
+/* --TABELA PRATICANTE*/
+
+CREATE TABLE
+PRATICANTE
+(
+	PraticanteID		INT PRIMARY KEY AUTO_INCREMENT,
+	Nome				VARCHAR(64) UNIQUE NOT NULL,
+	DataNasc			DATE NOT NULL,
+	Genero				ENUM('M', 'F') NOT NULL,
+	MRua				VARCHAR(64) NOT NULL,
+	MAndar				INT DEFAULT NULL,
+	MNPorta				INT NOT NULL,	
+	MLocalidade			VARCHAR(32) NOT NULL,
+	MCP					VARCHAR(32) NOT NULL,
+	PlanoID				INT NOT NULL,
+	Calorias			INT NOT NULL,
+	FOREIGN KEY(PlanoID) REFERENCES PLANO_TREINO(PlanoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+INSERT INTO 
+	PRATICANTE(Nome, DataNasc,Genero,MRua,MAndar,MNPorta,MLocalidade,MCP,PlanoID,Calorias)
+VALUES
+('João Silva',      '1976-12-19','M','Rua Santa Catarina',  1,'345',   'Porto',       '4000-002',2, 3000),
+('Maria Guimarães', '1985-06-02','F','Rua da Rotunda',      NULL,'89','Vila de Conde','4480-017',3, 10345),
+('Carolina Costa',  '1982-01-03','F','Rua da Maia',         NULL,'123','Maia',         '4100-001',1, 504),
+('Alexandre Mendes','2002-05-03','M','Av. Lourenço Peixinho',3, '4567',  'Aveiro',       '3800-185',5, 32567),
+('Diogo Pinto',     '1939-01-01','M','Av. da República',     2,'34',   'Lisboa',     '1000-000',4,396),
+('Guilherme Amaral','1972-01-01','M','Rua Eng. Von Haff',    5, '911',   'Aveiro',      '3800-385',6, 45698);
+
+/*--TABLE TELE*/
+
+CREATE TABLE
+TELEMOVEL
+(
+	PraticanteID 		INT NOT NULL,
+	NumTelem        	VARCHAR(64),
+	PRIMARY KEY(PraticanteID,NumTelem),
+	FOREIGN KEY(PraticanteID) REFERENCES PRATICANTE(PraticanteID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO TELEMOVEL(PraticanteID,NumTelem)
+VALUES
+(1,'912345678,961234567'),
+(2,'922222222'),
+(3,'913452123'),
+(4,'965712098'),
+(5,'912414135,968751991'),
+(6,'931523089,915823645,967435921');
+
+/*--TABELA WORKOUT_SESSION*/
+
+CREATE TABLE
+TREINO
+(
+	TreinoID		INT PRIMARY KEY AUTO_INCREMENT,
+	Tipo_Treino		VARCHAR(64) NOT NULL
+);
+
+INSERT INTO TREINO(Tipo_Treino)
+VALUES
+('Combat'),
+('Yoga'),
+('Spinning'),
+('Pump'),
+('Localizada'),
+('Pilates');
+
+
+
+/*--TABLE INSCREVER*/
+
+CREATE TABLE
+INSCREVER
+(
+	PraticanteID		INT NOT NULL,
+	TreinoID			INT NOT NULL,
+	Inscrito			DATETIME NOT NULL,
+	PRIMARY KEY (PraticanteID,TreinoID),
+	FOREIGN KEY(PraticanteID) REFERENCES PRATICANTE(PraticanteID) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(TreinoID) REFERENCES TREINO(TreinoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO INSCREVER(PraticanteID,TreinoID,Inscrito)
+VALUES
+(1,2,'2000-05-04 16:01:37'),
+(2,3,'2019-04-12 10:30:27'),
+(3,4,'2018-08-21 09:22:12'),
+(4,5,'2020-01-16 15:47:05'),
+(5,6,'2017-11-04 19:31:49'),
+(6,1,'1990-10-04 20:15:58');
+
+/*--TABLE CONTER*/
+
+CREATE TABLE
+CONTER
+(
+	PlanoID			INT NOT NULL,
+	TreinoID		INT NOT NULL,
+	PRIMARY KEY(TreinoID,PlanoID),
+	FOREIGN KEY(TreinoID) REFERENCES TREINO(TreinoID) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(PlanoID) REFERENCES PLANO_TREINO(PlanoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO CONTER(PlanoID,TreinoID)
+VALUES
+(1,3),
+(2,1),
+(3,4),
+(4,5),
+(5,6),
+(6,2);
+
+
+/*--TABLE EQUIPAMENTO*/
+
+CREATE TABLE
+EQUIPAMENTO
+(
+	EquipamentoID		INT PRIMARY KEY AUTO_INCREMENT,
+	Nome				VARCHAR(64) NOT NULL
+);
+
+INSERT INTO EQUIPAMENTO(Nome)
+VALUES
+('Banco pesos'),
+('Passadeira'),
+('Halteres'),
+('Banco de Abdominais'),
+('Banda'),
+('Triceps');
+
+-- TABLE EXERCICIOS*/
+
+CREATE TABLE
+EXERCICIOS
+(
+	ExID				INT PRIMARY KEY AUTO_INCREMENT,
+	Nome				VARCHAR(64) UNIQUE NOT NULL,
+	Parte_corpo			VARCHAR(32) NOT NULL,
+	Equipamento     	INT DEFAULT NULL,
+	FOREIGN KEY(Equipamento) REFERENCES EQUIPAMENTO(EquipamentoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+INSERT INTO EXERCICIOS(Nome,Parte_corpo,Equipamento)
+VALUES
+('Flexões','Peitorais',NULL),
+('Agachamentos','Pernas',5),
+('Levantamentos de peso','Braços',3),
+('Burpees','Todo o corpo',NULL),
+('Prancha','Abdominais',NULL),
+('Ponte de glúteos','Glúteos',NULL);
+
+
+CREATE TABLE
+COMPOSTO
+(
+	TreinoID		INT NOT NULL,
+	ExID			INT NOT NULL,
+	Sets			INT NOT NULL,
+	PRIMARY KEY(TreinoID,ExID),
+	FOREIGN KEY(TreinoID) REFERENCES TREINO(TreinoID) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(ExID) REFERENCES EXERCICIOS(ExID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+INSERT INTO COMPOSTO(TreinoID,ExID,Sets)
+VALUES
+(1,1,3),
+(2,4,4),
+(3,3,6),
+(4,2,2),
+(5,5,3),
+(6,6,5);
+
+/*--TABLE USAR*/
+
+CREATE TABLE
+USAR
+(
+	EquipamentoID		INT NOT NULL,
+	TreinoID			INT NOT NULL,
+	PRIMARY KEY(TreinoID,EquipamentoID),
+	FOREIGN KEY(TreinoID) REFERENCES TREINO(TreinoID) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(EquipamentoID) REFERENCES EQUIPAMENTO(EquipamentoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO USAR(EquipamentoID,TreinoID)
+VALUES
+(3,1),
+(1,2),
+(2,3),
+(6,4),
+(5,5),
+(4,6);

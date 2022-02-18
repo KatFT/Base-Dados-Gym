@@ -1,0 +1,57 @@
+table PRATICANTE(
+_ PraticanteID _,
+Nome,DataNasc,
+Genero,MRua,MNPorta,
+MAndar?,MLocalidade,
+MCP,
+PlanoID --> PLANO_TREINO.PlanoID,
+Calorias
+)
+
+table TELEMOVEL(
+_ PraticanteID _ --> PRATICANTE.PraticanteID,
+_ NumTelem _
+)
+
+table TREINO(
+_ TreinoID _,Tipo_Treino
+)
+
+table INSCREVER(
+_ PraticanteID _ --> PRATICANTE.PraticanteID,
+_ TreinoID _ --> TREINO.TreinoID,
+Inscrito
+)
+
+table PLANO_TREINO(
+_ PlanoID _,
+Intensidade
+)
+
+table CONTER(
+_ TreinoID _ --> TREINO.TreinoID,
+_ PlanoID _ --> PLANO_TREINO.PlanoID
+)
+
+table EQUIPAMENTO(
+_ EquipamentoID _,
+Nome
+)
+
+table USAR(
+_ TreinoID _ --> TREINO.TreinoID,
+_ EquipamentoID _ --> EQUIPAMENTO.EquipamentoID
+)
+
+table EXERCICIOS(
+_ ExID _ ,
+Nome,
+Parte_corpo,
+Equipamento ? --> EQUIPAMENTO.EquipamentoID
+)
+
+table COMPOSTO(
+_ TreinoID _ --> TREINO.TreinoID,
+_ ExID _ --> EXERCICIOS.ExID,
+Sets
+)

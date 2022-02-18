@@ -1,0 +1,22 @@
+PRATICANTE(_ PraticanteID _,Nome,DataNasc,.Idade.,Genero,{NumTelem},Morada(Rua,NPorta,Andar?,Localidade,CP),Calorias)
+
+PLANO_TREINO(_ PlanoID _,Intensidade)
+
+EXERCICIOS(_ ExID _,Nome,Parte_Corpo)
+
+EQUIPAMENTO(_ EquipamentoID _,Nome)
+
+TREINO(_ TreinoID _,Tipo_Treino)
+
+
+PRATICANTE ===N===<TER>---1--- PLANO_TREINO                  
+
+PRATICANTE ---M---<INSCREVER(Inscrito)>---N--- TREINO          
+
+TREINO---N---<CONTER>---M--- PLANO_TREINO
+
+TREINO---N---<USAR>---M--- EQUIPAMENTO
+
+TREINO===M===<COMPOSTO (Sets) >---N--- EXERCICIOS
+
+EQUIPAMENTO===1===<UTILIZAR>---N--- EXERCICIOS
