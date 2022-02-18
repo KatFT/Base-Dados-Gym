@@ -13,11 +13,11 @@ O objetivo deste trabalho seria criar uma BD para um universo à nossa escolha, 
 
 O modelo deverá obedecer às seguintes restrições:
 
-- 4 entidades-tipo no mínimo, e de tal forma que haja pelo menos uma entidade-tipo que exemplifique cada um dos seguintes tipos de atributos (além de atributos-chave):
- - opcional;
- - derivado;
- - multi-valor;
- - e composto;
+* 4 entidades-tipo no mínimo, e de tal forma que haja pelo menos uma entidade-tipo que exemplifique cada um dos seguintes tipos de atributos (além de atributos-chave):
+  * opcional;
+  * derivado;
+  * multi-valor;
+  * e composto;
 - 6 relacionamentos binários no mínimo por forma a que pelo menos um dos relacionamentos exemplifique:
  - cardinalidade 1:N ou N:1;
  - cardinalidade M:N;
